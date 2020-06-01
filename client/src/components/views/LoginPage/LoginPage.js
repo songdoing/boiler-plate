@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+//import Axios from 'axios'
+import { useDispatch } from 'react-redux';
+import {loginUser} from '../../../_actions/user_action' 
 
-function LoginPage() {
-    
+function LoginPage(props) {
+    const dispatch = useDispatch();
+
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
 
@@ -16,7 +20,26 @@ function LoginPage() {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        //state안의 상태. 브라우저에 입력한 것을 넣어진다
+        console.log('Email', Email)
+        console.log('Password', Password)
+
+        let body = {
+            email : Email,
+            password : Password
+        }
+
+        dispatch(loginUser(body))
+            .then(response => {
+                if(response.payload.loginSuccess) {
+                    props.history.push('./') //history.push 보내준다
+                } else {
+                    alert('Error');
+                }
+            })
+       
     }
+
     return (
         <div style={{display :'flex', justifyContent : 'center', alignItems : 'center',
             width : '100%', height : '100vh' 
@@ -29,7 +52,7 @@ function LoginPage() {
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler} />  
                 <br/>
-                <button> Login </button>   
+                <button type="submit"> Login </button>   
             </form>        
         </div>
     )
