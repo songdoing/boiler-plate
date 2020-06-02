@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import {registerUser} from '../../../_actions/user_action' 
+//import Axios from 'axios';
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
@@ -8,7 +9,7 @@ function RegisterPage(props) {
     const [Email, setEmail] = useState("")
     const [Name, setName] = useState("")
     const [Password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [ConfirmPassword, setConfirmPassword] = useState("")
 
     const onEmailHandler = (event) => {
 
@@ -34,7 +35,7 @@ function RegisterPage(props) {
         console.log('Password', Password)
 
         //비번이랑 확인비번이랑 같아야 버튼클릭 할수 있다.
-        if(Password !== confirmPassword) {
+        if(Password !== ConfirmPassword) {
             return alert('Confirm password and password should be same.')
         }
 
@@ -48,7 +49,8 @@ function RegisterPage(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if(response.payload.success) {
-                    props.history.push('/login') //history.push 보내준다
+                    props.history.push("/login") 
+                    //history.push 보내준다
                     alert ('Success to sign up. plz log in.')
                 } else {
                     alert('Failed to sign up.');
@@ -74,7 +76,7 @@ function RegisterPage(props) {
                 <input type="password" value={Password} onChange={onPasswordHandler} />
 
                 <label>Confirm Password</label>
-                <input type="password" value={confirmPassword} onChange={onConfirmPasswordHandler} />
+                <input type="password" value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
 
                 <br/>
                 <button type="submit"> SignUp </button>   

@@ -22,14 +22,16 @@ mongoose.connect(config.mongoURI, {
 
 
 app.get('/', (req, res) => res.send('Hello World! I am Jenny.'))
+app.get('/api/hello', (req, res) => res.send('Hello World!~~ '))
 
 //register를 위한 router
 app.post('/api/users/register', (req, res) => {
     //회원가입시 필요한 정보를 client가져오면 db로 넣어준다
 
-    const user =  new User(req.body)//bodyparser에 의해 이 안에 이름,비번들어감
+    const user =  new User(req.body)
+    //bodyparser에 의해 이 안에 이름,비번들어감
     //mongoDB save함수
-    user.save ((err, userInfo) => {
+    user.save ((err, useInfo) => {
         if(err) return res.json({success : false, err})
         return res.status(200).json({
             success : true
