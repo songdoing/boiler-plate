@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 //import Axios from 'axios'
 import { useDispatch } from 'react-redux';
 import {loginUser} from '../../../_actions/user_action' 
+import { withRouter } from 'react-router-dom';
 
 function LoginPage(props) {
     const dispatch = useDispatch();
@@ -18,6 +19,10 @@ function LoginPage(props) {
         setPassword(event.currentTarget.value)
     }
 
+    const onClickStart = () => {
+        props.history.push('/')
+    }
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
         //state안의 상태. 브라우저에 입력한 것을 넣어진다
@@ -32,7 +37,8 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess) {
-                    props.history.push('./') //history.push 보내준다
+                    props.history.push('./') 
+                    //history.push 보내준다 react-router-dom의 withRouter를 써야함.
                 } else {
                     alert('Error');
                 }
@@ -52,10 +58,13 @@ function LoginPage(props) {
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler} />  
                 <br/>
-                <button type="submit"> Login </button>   
-            </form>        
+                <button type="submit"> Login </button>  
+                <br/>
+                <button onClick= {onClickStart}>Start Page</button> 
+            </form>
+                    
         </div>
     )
 }
 
-export default LoginPage
+export default withRouter(LoginPage)

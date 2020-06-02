@@ -1,5 +1,5 @@
 import {
-    LOGIN_USER, REGISTER_USER
+    LOGIN_USER, REGISTER_USER, AUTH_USER
 } from '../_actions/types';
 
 export default function (state={}, action) {
@@ -9,7 +9,8 @@ export default function (state={}, action) {
             //user_action파일의 request하여 백엔드(index.js)로부터 가져온 data를 reducer에게 보내줌
         case REGISTER_USER :
             return { ...state, register : action.payload}   
-
+        case AUTH_USER :
+            return { ...state, userData : action.payload}
         default :
             return state;    
     }

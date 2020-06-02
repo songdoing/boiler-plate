@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {registerUser} from '../../../_actions/user_action' 
+import {registerUser} from '../../../_actions/user_action'; 
 //import Axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
@@ -26,6 +27,10 @@ function RegisterPage(props) {
 
     const onConfirmPasswordHandler = (event) => {
         setConfirmPassword(event.currentTarget.value)
+    }
+
+    const onClickStart = () => {
+        props.history.push('/')
     }
 
     const onSubmitHandler = (event) => {
@@ -79,10 +84,12 @@ function RegisterPage(props) {
                 <input type="password" value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
 
                 <br/>
-                <button type="submit"> SignUp </button>   
+                <button type="submit"> SignUp </button>  
+                <br/>
+                <button onClick= {onClickStart}>Start Page</button> 
             </form>        
         </div>
     )
 }
 
-export default RegisterPage
+export default withRouter(RegisterPage)

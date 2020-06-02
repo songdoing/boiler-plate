@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 function LandingPage(props) {
     useEffect(() => {
@@ -19,14 +20,24 @@ function LandingPage(props) {
         })
     }
 
+    const onClickLogin = () => {
+        props.history.push("/login");
+    }
+
+    const onClickRegister = () => {
+        props.history.push("/register");
+    }
+
     return (
-        <div style={{display :'flex', justifyContent : 'center', alignItems : 'center',
+        <div style={{display :'flex', justifyContent : 'center', flexDirection : 'column', alignItems : 'center',
             width : '100%', height : '100vh' 
         }}>
-           <h2>start page</h2>
-           <button onClick= {onClickHandler}>Log Out</button>
+           <h2>start page</h2> <br/>
+           <button onClick= {onClickHandler}>Log Out</button><br/>
+           <button onClick= {onClickLogin}>Log In</button><br/>
+           <button onClick= {onClickRegister}>Register</button>
         </div>
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage)
